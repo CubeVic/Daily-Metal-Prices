@@ -1,13 +1,11 @@
 """ API for the database """
 
-
 import sqlalchemy
 from sqlmodel import SQLModel, create_engine, Session, select
-from datetime import datetime
 from sqlmodel.sql.expression import SelectOfScalar, Select
 
-
 db_engine = sqlalchemy.future.engine.Engine
+
 
 def define_db(database_name: str) -> str:
 	"""Define the database"""
@@ -61,4 +59,3 @@ def select_records(table, where_clause):
 	with Session(database_engine) as session:
 		statement = select(table).where(where_clause)
 		return session.exec(statement=statement).all()
-
