@@ -22,12 +22,25 @@ To use it:
 At this stage there are two main functions:
 * `fetch_data()`: it will receive "Silver", "Gold", "Platinum", "Palladium" as a parameter, and it will return a tuple, first argument is the status code, second a dictionary with the price and metal information.
 ````commandline
-(200, {'metal_data': {'time_stamp': 1660381675, 'metal_symbol': 'XAG', 'metal_name': 'Silver', 'price': 20.829, 'currency': 'USD'}})
+(200, 
+    {'metal_data': 
+        {'time_stamp': 1660381675, 
+        'metal_symbol': 'XAG', 
+        'metal_name': 'Silver', 
+        'price': 20.829, 
+        'currency': 'USD'}
+        }
+)
 ````
 * `fetch_stats()`: it will return the usage stats for the current API as a tuple, first parameter the status code, second a dictionary with the stat information.
 
 ```commandline
-(200, {'requests_today': 40, 'requests_yesterday': 0, 'requests_month': 40, 'requests_last_month': 0})
+(200, 
+    {'requests_today': 40, 
+    'requests_yesterday': 0, 
+    'requests_month': 40, 
+    'requests_last_month': 0}
+)
 ```
 
 ## License  
