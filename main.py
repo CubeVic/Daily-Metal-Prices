@@ -4,18 +4,6 @@ from metals.models import Prices
 from metals import metals
 
 if __name__ == "__main__":
-	items = ["Silver", "Gold", "Platinum", "Palladium"]
-
-	metals.create_db_and_tables()
-
-	metals_info = []
-
-	for item in items:
-		_, resp_silver = fetch_data(metal=item)
-		metal = Prices(**resp_silver['metal_data'])
-		metals_info.append(metal)
-
-	metals.insert_all(items=metals_info)
 
 	record = metals.select_record(
 		table=Prices,
