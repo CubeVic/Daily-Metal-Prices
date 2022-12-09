@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
@@ -9,4 +10,3 @@ class Prices(SQLModel, table=True):
 	metal_name: str
 	price: float
 	currency: str
-

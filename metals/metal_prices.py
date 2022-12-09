@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import os
 from typing import Tuple
@@ -65,5 +66,3 @@ def fetch_stats() -> Tuple[int, dict]:
 	url = STATS
 	resp = requests.get(url=url, headers=headers)
 	return resp.status_code, resp.json()
-
-

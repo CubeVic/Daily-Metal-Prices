@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ initialize the database"""
 from metals import metals
 from metals.metal_prices import fetch_data
