@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ API for the database """
 
 import sqlalchemy

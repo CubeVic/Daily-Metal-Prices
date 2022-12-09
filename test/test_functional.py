@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 import unittest
 from metals.metal_prices import fetch_data, fetch_stats
