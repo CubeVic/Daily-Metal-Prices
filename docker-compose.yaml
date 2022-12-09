@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  metals:
+    build:
+      context: .
+    env_file: .env
+    # volumes:
+    # - metal_prices.db:metal_prices.db
