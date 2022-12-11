@@ -12,9 +12,9 @@ updates:
     interval: daily
   labels:
   - enhancement
-- package-ecosystem: docker
-  directory: /
-  schedule:
-    interval: daily
-  labels:
-  - enhancement
+# - package-ecosystem: docker
+#   directory: /
+#   schedule:
+#     interval: daily
+#   labels:
+#   - enhancement
