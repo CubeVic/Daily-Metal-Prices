@@ -1,13 +1,18 @@
-![Logo_metal_prices](Metal_prices.png)
 # Daily Metal Prices
+
+![Logo_metal_prices](Metal_prices.png)
+
 ## Description
-in the future will be a microservice that will provide the daily prices of different precious metals in USD, for now it provide prices from a single API (https://www.goldapi.io/) in the future is expected to have its own logic and fetch the prices form other sources.
+
+In the future will be a microservice that will provide the daily prices of different precious metals in USD, for now it provide prices from a single API (https://www.goldapi.io/) in the future is expected to have its own logic and fetch the prices form other sources.
 
 ## Table of Contents
 
 ## How to Install and Run the Project
+
 To use it:
-1.  Clone it.
+
+1. Clone it.
 2. Run the `Initialize.py` this will create the database `metal_prices.db` and populate it with the prices of the day, the metals supported at this point are:
 
 * Silver (**XAG**).
@@ -20,8 +25,10 @@ To use it:
 ## How to Use the Project
 
 At this stage there are two main functions:
+
 * `fetch`: it will receive "Silver", "Gold", "Platinum", "Palladium" or "stats" as a parameter, and it will return a dictionary with the price and metal information.
-````json
+
+```json
 {
     'timestamp': 1670742767,
     'metal': 'XAG',
@@ -44,7 +51,8 @@ At this stage there are two main functions:
     'price_gram_20k': 0.6345,
     'price_gram_18k': 0.5711
 }
-````
+```
+
 * `fetch`: with the argumnet `stats` will return a json containin information about the API usage.
 
 ```json
