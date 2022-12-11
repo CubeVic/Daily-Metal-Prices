@@ -15,32 +15,45 @@ To use it:
 * Platinum (**XPT**).
 * Palladium (**XPD**).
 
-> you will need to add an API key on `os.environ["API_KEY"]`, this is located on `metal>metal_prices>_prepare_request() > "x-access-token": os.environ["API_KEY"]`
+> you will need to add an API key on `os.environ["API_KEY"]`
 
 ## How to Use the Project
 
 At this stage there are two main functions:
-* `fetch_data()`: it will receive "Silver", "Gold", "Platinum", "Palladium" as a parameter, and it will return a tuple, first argument is the status code, second a dictionary with the price and metal information.
-````commandline
-(200,
-    {'metal_data':
-        {'time_stamp': 1660381675,
-        'metal_symbol': 'XAG',
-        'metal_name': 'Silver',
-        'price': 20.829,
-        'currency': 'USD'}
-        }
-)
+* `fetch`: it will receive "Silver", "Gold", "Platinum", "Palladium" or "stats" as a parameter, and it will return a dictionary with the price and metal information.
+````json
+{
+    'timestamp': 1670742767,
+    'metal': 'XAG',
+    'currency': 'USD',
+    'exchange': 'FOREXCOM',
+    'symbol': 'FOREXCOM:XAGUSD',
+    'prev_close_price': 23.069,
+    'open_price': 23.069,
+    'low_price': 22.956,
+    'high_price': 23.684,
+    'open_time': 1670544000,
+    'price': 23.684,
+    'ch': 0.615,
+    'chp': 2.67,
+    'ask': 23.499,
+    'bid': 23.434,
+    'price_gram_24k': 0.7615,
+    'price_gram_22k': 0.698,
+    'price_gram_21k': 0.6663,
+    'price_gram_20k': 0.6345,
+    'price_gram_18k': 0.5711
+}
 ````
-* `fetch_stats()`: it will return the usage stats for the current API as a tuple, first parameter the status code, second a dictionary with the stat information.
+* `fetch`: with the argumnet `stats` will return a json containin information about the API usage.
 
-```commandline
-(200,
-    {'requests_today': 40,
+```json
+{
+    'requests_today': 40,
     'requests_yesterday': 0,
     'requests_month': 40,
-    'requests_last_month': 0}
-)
+    'requests_last_month': 0
+}
 ```
 
 ## License
