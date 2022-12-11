@@ -29,6 +29,7 @@ At this stage there are two main functions:
 * `fetch`: it will receive "Silver", "Gold", "Platinum", "Palladium" or "stats" as a parameter, and it will return a dictionary with the price and metal information.
 
 ```json
+
 {
     'timestamp': 1670742767,
     'metal': 'XAG',
@@ -51,6 +52,7 @@ At this stage there are two main functions:
     'price_gram_20k': 0.6345,
     'price_gram_18k': 0.5711
 }
+
 ```
 
 * `fetch`: with the argumnet `stats` will return a json containin information about the API usage.
