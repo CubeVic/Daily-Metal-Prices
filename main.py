@@ -1,23 +1,30 @@
 # -*- coding: utf-8 -*-
-""" initialize the database"""
-from metals.metal_prices import fetch
-from metals.models import Prices
-from metals import metals
+import os
+from typing import Tuple
 from dotenv import load_dotenv
-import initialize
+import requests
+import random
 
 load_dotenv()
+BASE_URL = "https://www.goldapi.io/api/"
+
+endpoint = {
+	"gold":"XAU/USD",
+	"silver":"XAG/USD",
+	"platinum":"XPT/USD",
+	"palladium":"XPD/USD",
+	"stat":"stat"}
+
+headers = {
+		"x-access-token": os.environ.get(f"API_KEY{random.randint(1,2)}"),
+		"Content-Type": "application/json"}
+
+
+def fetch(data: str = 'stat') -> Tuple[int, dict]:
+	url = f"{BASE_URL}{endpoint[data]}"
+	resp = requests.get(url=url, headers=headers)
+	resp.raise_for_status()
+	return resp.json()
 
 if __name__ == "__main__":
-	metals.create_db_and_tables()
-	initialize.initialize_records()
-	record = metals.select_record(
-		table=Prices,
-		where_clause=Prices.metal == 'XAG')
-	records = metals.select_records(
-		table=Prices,
-		where_clause=Prices.metal == 'XAG')
-	print(f"record : {record}")
-	print(f"records : {records}")
-	print(fetch())
-	print(fetch(data='silver'))
+	print(fetch(data="silver"))
