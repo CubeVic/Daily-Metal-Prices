@@ -1,19 +1,17 @@
-ARG         base=python:3.11.1-alpine3.17
+# Default base image
+ARG base=python:3.11.1-alpine3.17
 
-###
-
-
-FROM        ${base} AS poetry
-
-ARG         MAKEFLAGS
-ARG         POETRY_VERSION=1.2.2
+### Poetry stage ###
+FROM ${base} AS poetry
+ARG MAKEFLAGS
+ARG POETRY_VERSION=1.2.2
 
 RUN         apk add --no-cache --virtual .build-deps \
-                curl \
-                build-base \
-                libffi-dev && \
-            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/install-poetry.py | python && \
-            apk del .build-deps
+        curl \
+        build-base \
+        libffi-dev && \
+      curl -sSL https://install.python-poetry.org | python - && \
+      apk del .build-deps
 
 ###
 
