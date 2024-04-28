@@ -16,6 +16,14 @@ jobs:
       with:
         python-version: '3.10'
 
+    - name: Cache pre-commit hooks
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-precommit-
+
     - name: Run pre-commit
       uses: pre-commit/action@v3.0.0
 
