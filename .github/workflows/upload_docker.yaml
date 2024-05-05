@@ -31,7 +31,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Tag Docker Image
-        run: docker tag metals ghcr.io/${{ github.repository_owner }}/daily-metal-prices/metals:latest
+        run: docker tag metals ghcr.io/cubevic/daily-metal-prices/metals:latest
 
       - name: Push Docker Image to GitHub Packages Container Registry
-        run: docker push ghcr.io/${{ github.repository_owner }}/daily-metal-prices/metals:latest
+        run: docker push ghcr.io/cubevic/daily-metal-prices/metals:latest
