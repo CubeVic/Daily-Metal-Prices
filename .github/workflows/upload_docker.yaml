@@ -1,6 +1,6 @@
 name: upload docker
 
-on: 
+on:
   pull_request:
     types: [closed]
     branches:
@@ -17,7 +17,7 @@ jobs:
       - name: Build docker
         run: |
           docker build -t metals .
-      
+
       # - name: Save Docker Image to .tar
       #   run: |
       #     docker save -o my-docs-image.tar mydocs
