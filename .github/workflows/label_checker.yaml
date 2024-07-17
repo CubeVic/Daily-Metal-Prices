@@ -25,7 +25,7 @@ jobs:
           bodyContains: 'Checker'
 
       - name: Get PR description
-        if: ${{ steps.checker.outputs.bodyContains == 'success'}}
+        if: ${{ steps.checker.outputs.conclusion == 'success'}}
         id: get_pr
         uses: octokit/request-action@v2.x
         with:
@@ -39,13 +39,14 @@ jobs:
         run: |
           description="${{ steps.get_pr.outputs.data }}"
       - uses: bcgov-nr/action-pr-description-add@main
-        if: env.description_updated == 'false'
+        if: always()
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
           add_markdown: |
             ---
             ## :shipit: Label Checker status Failed
+            ${{ steps.checker.outputs.conclusion == 'success'}}
             If the Label Checker status is `failure`, you forgot to add a label to the PR.
             - `Unrelease` label for those features not deployed yet.
             - `Released` label for those features already released.
