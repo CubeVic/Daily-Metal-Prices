@@ -51,7 +51,7 @@ jobs:
             --Updated missing label--
 
       - uses: bcgov-nr/action-pr-description-add@main
-        if: ${{ steps.checker.conclusion == failure}}
+        if: ${{ steps.checker.conclusion == 'failure'}}
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
