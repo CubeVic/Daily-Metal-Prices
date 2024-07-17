@@ -17,14 +17,14 @@ jobs:
           one_of: release
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: bcgov-nr/action-pr-description-add@main
-        if: always()
+        if: ${{steps.label_checker.conclusion}}
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
           add_markdown: |
             ---
-            ## Label Checker status ${{ steps.label_checker.conclusion }}
+            ## Label Checker status Failed
             If the Label Checker status is `failure`, you forgot to add a label to the PR.
             - `Unrelease` label for those features not deployed yet
             - `Release` label for those features already released
-            ${{ steps.label_checker.outcome }}}
+            ${{ steps.label_checker.outcome }}
