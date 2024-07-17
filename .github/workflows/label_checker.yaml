@@ -14,7 +14,7 @@ jobs:
         id: label_checker
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: release, enhancement
+          one_of: release, Unrelease
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: bcgov-nr/action-pr-description-add@main
         if: always()
