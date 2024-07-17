@@ -14,3 +14,24 @@ jobs:
         with:
           one_of: release
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+  test:
+    name: PR Greeting
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bcgov-nr/action-pr-description-add@main
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          limit_to_pr_opened: "false"
+          add_markdown: |
+            ---
+
+            # Things!
+            ## Excitement!
+            [Links!](https://google.ca)
+            `Code!`
+            _Italics_
+            *Bold*
+            * Bullets!
+            * and [more reading!](https://github.github.com/gfm/)
