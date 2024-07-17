@@ -17,6 +17,7 @@ jobs:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get PR description
+        if: always()
         id: get_pr
         uses: octokit/request-action@v2.x
         with:
@@ -25,6 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if PR description has been updated before
+        if: always()
         id: check_description
         run: |
           if echo "${{ steps.get_pr.outputs.data }}" | grep -q "--Updated--"; then
