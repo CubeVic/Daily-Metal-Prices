@@ -16,30 +16,18 @@ jobs:
         with:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Check PR
         id: checker
         if: always()
         uses: JJ/github-pr-contains-action@releases/v14.1
         with:
           github-token: ${{github.token}}
-          bodyContains: "Updated"
+          bodyContains: "Updated missing label"
 
-      - name: Get PR description
-        if: ${{ steps.checker.outcome == 'false'}}
-        id: get_pr
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check if PR description has been updated before
-        if: ${{ steps.checker.outcome == 'success'}}
-        id: check_description
-        run: |
-          description="${{ steps.get_pr.outputs.data }}"
+          
       - uses: bcgov-nr/action-pr-description-add@main
-        if: always()
+        if: ${{ steps.checker.outcome != "success"}}
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
@@ -60,4 +48,4 @@ jobs:
             > [!TIP]
             > Helpful advice for doing things better or more easily.
 
-            --Updated--
+            --Updated missing label--
