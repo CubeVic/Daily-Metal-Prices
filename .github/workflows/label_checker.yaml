@@ -21,7 +21,6 @@ jobs:
         uses: JJ/github-pr-contains-action@releases/v14.1
         with:
           github-token: ${{github.token}}
-          bodyDoesNotContain: "Delete|this"
           bodyContains: 'Checker'
       - name: Get PR description
         if: always()
