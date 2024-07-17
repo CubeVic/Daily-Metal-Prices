@@ -23,7 +23,7 @@ jobs:
           limit_to_pr_opened: "false"
           add_markdown: |
             ---
-            ${{ steps.label_checker}}
+            ${{ steps.label_checker.conclusion }}
             # Things!
             ## Excitement!
             [Links!](https://google.ca)
