@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from decimal import Decimal
 from pydantic import BaseModel
 
@@ -30,8 +31,7 @@ class MetalResponse(BaseModel):
 
 
 class StatResponse(BaseModel):
-    requests_today: int 
+    requests_today: int
     requests_yesterday: int
     requests_month: int
     requests_last_month: int
-
