@@ -23,12 +23,7 @@ jobs:
           limit_to_pr_opened: "false"
           add_markdown: |
             ---
-            ${{ steps.label_checker.conclusion }}
-            # Things!
-            ## Excitement!
-            [Links!](https://google.ca)
-            `Code!`
-            _Italics_
-            *Bold*
-            * Bullets!
-            * and [more reading!](https://github.github.com/gfm/)
+            ## Label Checker status ${{ steps.label_checker.conclusion }}
+            If the Label Checker status is `failure`, you forgot to add a label to the PR.
+            - `Unrelease` label for those features not deployed yet
+            - `Release` label for those features already released
