@@ -10,23 +10,20 @@ jobs:
     name: Check labels
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://agilepathway/pull-request-label-checker:latest
+      - name: Label Checker
+        id: label_checker
+        uses: docker://agilepathway/pull-request-label-checker:latest
         with:
           one_of: release
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-  test:
-    name: PR Greeting
-    permissions:
-      pull-requests: write
-    runs-on: ubuntu-latest
-    steps:
       - uses: bcgov-nr/action-pr-description-add@main
+        if: always()
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
           add_markdown: |
             ---
-
+            ${{ step.label_checker}}
             # Things!
             ## Excitement!
             [Links!](https://google.ca)
