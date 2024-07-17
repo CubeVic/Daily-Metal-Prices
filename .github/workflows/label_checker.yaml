@@ -25,7 +25,7 @@ jobs:
           bodyContains: "Updated"
 
       - name: Get PR description
-        if: ${{ steps.checker.outputs.conclusion == 'false'}}
+        if: ${{ steps.checker.outcome == 'false'}}
         id: get_pr
         uses: octokit/request-action@v2.x
         with:
