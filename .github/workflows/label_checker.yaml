@@ -29,7 +29,8 @@ jobs:
         if: always()
         id: check_description
         run: |
-          if echo "${{ steps.get_pr.outputs.data }}" | grep -q "--Updated--"; then
+          description="${{ steps.get_pr.outputs.data }}"
+          if echo "$description" | jq -r '.body' | grep -q "--Updated--"; then
             echo "description_updated=true" >> $GITHUB_ENV
           else
             echo "description_updated=false" >> $GITHUB_ENV
