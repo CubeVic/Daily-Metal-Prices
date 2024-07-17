@@ -23,7 +23,7 @@ jobs:
         with:
           github-token: ${{github.token}}
           bodyContains: 'Checker'
-          
+
       - name: Get PR description
         if: ${{ steps.checker.conclusion == 'success'}}
         id: get_pr
