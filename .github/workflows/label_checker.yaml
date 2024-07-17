@@ -17,6 +17,7 @@ jobs:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check PR
+        if: always()
         uses: JJ/github-pr-contains-action@releases/v14.1
         with:
           github-token: ${{github.token}}
