@@ -16,7 +16,7 @@ jobs:
         with:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Check PR
         id: checker
         if: always()
@@ -25,7 +25,7 @@ jobs:
           github-token: ${{github.token}}
           bodyContains: "Updated missing label"
 
-          
+
       - uses: bcgov-nr/action-pr-description-add@main
         if: ${{ steps.checker.outcome != "success"}}
         with:
