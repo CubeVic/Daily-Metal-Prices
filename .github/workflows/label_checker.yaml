@@ -34,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if PR description has been updated before
-        if: ${{ steps.checker.outputs.conclusion == 'false'}}
+        if: ${{ steps.checker.outputs.conclusion == 'success'}}
         id: check_description
         run: |
           description="${{ steps.get_pr.outputs.data }}"
@@ -46,7 +46,7 @@ jobs:
           add_markdown: |
             ---
             ## :shipit: Label Checker status Failed
-            ${{ steps.checker.outputs}}
+            ${{ steps.checker.outcome}}
             If the Label Checker status is `failure`, you forgot to add a label to the PR.
             - `Unrelease` label for those features not deployed yet.
             - `Released` label for those features already released.
