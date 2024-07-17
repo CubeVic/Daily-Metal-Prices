@@ -17,13 +17,15 @@ jobs:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check PR
+        id: checker
         if: always()
         uses: JJ/github-pr-contains-action@releases/v14.1
         with:
           github-token: ${{github.token}}
           bodyContains: 'Checker'
+          
       - name: Get PR description
-        if: always()
+        if: ${{ steps.checker.conclusion == 'success'}}
         id: get_pr
         uses: octokit/request-action@v2.x
         with:
@@ -32,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if PR description has been updated before
-        if: always()
+        if: ${{ steps.checker.conclusion == 'success'}}
         id: check_description
         run: |
           description="${{ steps.get_pr.outputs.data }}"
