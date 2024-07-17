@@ -14,17 +14,42 @@ jobs:
         id: label_checker
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: release, Unrelease
+          one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get PR description
+        id: get_pr
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if PR description has been updated before
+        id: check_description
+        run: |
+          if echo "${{ steps.get_pr.outputs.data }}" | grep -q "--Updated--"; then
+            echo "description_updated=true" >> $GITHUB_ENV
+          else
+            echo "description_updated=false" >> $GITHUB_ENV
+          fi
       - uses: bcgov-nr/action-pr-description-add@main
-        if: always()
+        if: env.description_updated == 'false'
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
           add_markdown: |
             ---
-            ## Label Checker status Failed
+            ## :shipit: Label Checker status Failed
             If the Label Checker status is `failure`, you forgot to add a label to the PR.
-            - `Unrelease` label for those features not deployed yet
-            - `Release` label for those features already released
-            ${{ steps.label_checker.outcome }}
+            - `Unrelease` label for those features not deployed yet.
+            - `Released` label for those features already released.
+            - `bug_fix`  label for any fix of an existing test case, module, or component.
+            - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
+            
+            > [!WARNING]
+            > PR without a label won't be merged, team members responsible for merging are not responsible for the status, it will be up to each owner to tag PR and change those tags if needed.
+            
+            > [!TIP]
+            > Helpful advice for doing things better or more easily.
+            
+            --Updated--
