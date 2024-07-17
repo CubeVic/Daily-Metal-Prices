@@ -25,7 +25,7 @@ jobs:
           bodyContains: 'Checker'
 
       - name: Get PR description
-        if: ${{ steps.checker.conclusion == 'success'}}
+        if: ${{ steps.checker.outputs.bodyContains == 'success'}}
         id: get_pr
         uses: octokit/request-action@v2.x
         with:
