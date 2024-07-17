@@ -17,7 +17,7 @@ jobs:
           one_of: release
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: bcgov-nr/action-pr-description-add@main
-        if: ${{steps.label_checker.conclusion}}
+        if: ${{steps.label_checker.conclusion == 'failure' }}
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "false"
