@@ -30,11 +30,6 @@ jobs:
         id: check_description
         run: |
           description="${{ steps.get_pr.outputs.data }}"
-          if echo "$description" | jq -r '.body' | grep -q "--Updated--"; then
-            echo "description_updated=true" >> $GITHUB_ENV
-          else
-            echo "description_updated=false" >> $GITHUB_ENV
-          fi
       - uses: bcgov-nr/action-pr-description-add@main
         if: env.description_updated == 'false'
         with:
