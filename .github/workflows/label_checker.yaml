@@ -59,7 +59,7 @@ jobs:
             ---
             ## :shipit: Label Checker status Failed
             checker outcome: ${{ steps.checker.outcome}}
-            ${{ step.checker.conclusion}}
+            ${{ steps.checker.conclusion}}
 
 
             --Updated label--
