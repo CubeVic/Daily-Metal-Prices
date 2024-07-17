@@ -22,7 +22,7 @@ jobs:
         uses: JJ/github-pr-contains-action@releases/v14.1
         with:
           github-token: ${{github.token}}
-          bodyContains: "--Updated--"
+          bodyContains: "Updated"
 
       - name: Get PR description
         if: ${{ steps.checker.outputs.conclusion == 'false'}}
@@ -46,7 +46,7 @@ jobs:
           add_markdown: |
             ---
             ## :shipit: Label Checker status Failed
-            ${{ steps.checker.outputs.conclusion}}
+            ${{ steps.checker.outputs}}
             If the Label Checker status is `failure`, you forgot to add a label to the PR.
             - `Unrelease` label for those features not deployed yet.
             - `Released` label for those features already released.
