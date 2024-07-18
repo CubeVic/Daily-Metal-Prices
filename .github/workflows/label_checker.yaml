@@ -53,7 +53,7 @@ jobs:
         id: load_text
         run: |
           FILE_CONTENT=$(cat $PWD/.github/test_label_check_failed.md)
-          echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
+          echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_OUTPUT
 
       - uses: bcgov-nr/action-pr-description-add@main
         if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
@@ -61,7 +61,7 @@ jobs:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
           add_markdown: |
-              ${{ env.FILE_CONTENT}}
+              ${{ steps.load_text.outputs.FILE_CONTENT}}
           # add_markdown: |
           #   ---
           #   ## :shipit: Label Checker status Failed
