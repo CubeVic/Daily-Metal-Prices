@@ -17,6 +17,13 @@ jobs:
         with:
           github-token: ${{github.token}}
           bodyContains: " - [x] It's a feature already on Production"
+      
+      - name:  auto label
+        id: auto label
+        uses: actions-ecosystem/action-add-labels@v1
+        if: success()
+        with:
+          labels: bug
 
       - name: Check PR
         id: checker
