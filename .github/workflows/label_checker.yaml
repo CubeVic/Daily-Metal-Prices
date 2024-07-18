@@ -19,7 +19,7 @@ jobs:
           bodyContains: " - [x] It's a feature already on Production"
       
       - name:  auto label
-        id: auto label
+        id: auto_label
         uses: actions-ecosystem/action-add-labels@v1
         if: success()
         with:
