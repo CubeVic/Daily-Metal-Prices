@@ -28,14 +28,13 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
 
-      # - name: check response
-      #   id: check_response
-      #   if: always()
-      #   run: |
-      #     echo "response conclusion ${{steps.checker.conclusion}}"
-      #     echo "response outcome ${{steps.checker.outcome}}"
-
-      #     echo "response label checker ${{ steps.label_checker.conclusion}}"
+      - name: check response
+        id: check_response
+        if: always()
+        run: |
+          echo "response conclusion ${{steps.checker.conclusion}}"
+          echo "response label checker ${{ steps.label_checker.conclusion}}"
+          echo "${{ steps.label_checker.conclusion == 'failure'}}"
 
       - name: trigger by conclusion failure
         if: (failure() && steps.checker.conclusion)
