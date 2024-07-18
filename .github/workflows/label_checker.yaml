@@ -33,7 +33,7 @@ jobs:
           echo "response outcome ${{steps.checker.outcome}}"
 
       - name: trigger by conclusion failure
-        if: steps.checker.conclusion == 'failure'
+        if: (failure() && steps.checker.conclusion)
         run: |
           echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}
 
