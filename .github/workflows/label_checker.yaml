@@ -49,7 +49,7 @@ jobs:
         with:
           github-token: ${{github.token}}
           bodyContains: "Update missing label"
-          
+
       - name: load text
         id: load_text
         if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
