@@ -29,6 +29,10 @@ jobs:
       #   with:
       #     labels: Released
 
+      - name: check location
+        run: |
+          echo $PWD
+
       - name: Label Checker
         id: label_checker
         if: always()
