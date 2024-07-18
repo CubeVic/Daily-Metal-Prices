@@ -53,7 +53,7 @@ jobs:
         id: load_text
         run: |
           FILE_CONTENT=$(cat $PWD/.github/test_label_check_failed.md)
-          echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_OUTPUT
+          echo "FILE_CONTENT=$FILE_CONTENT" >> $GITHUB_OUTPUT
 
       - uses: bcgov-nr/action-pr-description-add@main
         if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
