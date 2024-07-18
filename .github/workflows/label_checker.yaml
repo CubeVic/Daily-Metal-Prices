@@ -64,13 +64,13 @@ jobs:
             Future you and current Team members would appreciate it if you could pay attention to the creation of the PR it is part of the delivery and will help reviewers and mergers to understand your intention.
 
             --Update missing label--
-    
+
       - name: Comment Pull Request if branch is up to date withbase
         uses: thollander/actions-comment-pull-request@v2.5.0
         if: success() && (steps.checker.conclusion == 'success' && steps.label_checker.conclusion == 'success')
         with:
           message: |
             :shipit: Thank you for changing the Label
-      
+
           reactions: +1
           pr_number: ${{ inputs.pull_request_number}}
