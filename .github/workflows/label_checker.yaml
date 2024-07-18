@@ -70,6 +70,23 @@ jobs:
 
             --Update missing label--
 
+      - name: Wrong label message
+        uses: thollander/actions-comment-pull-request@v2.5.0
+        if: success() && steps.label_checker.conclusion == 'success'
+        with:
+          message: |
+            ## :shipit: Label Not supported 
+              
+            ### supported labels:
+            - `Unrelease` label for those features not deployed yet.
+            - `Released` label for those features already released.
+            - `bug_fix`  label for fixing an existing test case, module, or component.
+            - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
+
+          reactions: +1
+          comment_tag: Label
+          pr_number: ${{ inputs.pull_request_number}}
+
       - name: Final message
         uses: thollander/actions-comment-pull-request@v2.5.0
         if: success() && steps.label_checker.conclusion == 'success'
