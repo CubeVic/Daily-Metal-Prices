@@ -10,20 +10,23 @@ jobs:
     name: Check labels
     runs-on: ubuntu-latest
     steps:
+
+      - name: Check PR
+        id: checker
+        if: always()
+        uses: JJ/github-pr-contains-action@releases/v14.1
+        with:
+          github-token: ${{github.token}}
+          bodyContains: "Updated missing label"
+      
       - name: Label Checker
         id: label_checker
+        if: (Failure() && steps.checker.conclusion)
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check PR
-        id: checker
-        if: (failure() && steps.label_checker.conclusion)
-        uses: JJ/github-pr-contains-action@releases/v14.1
-        with:
-          github-token: ${{github.token}}
-          bodyContains: "Updated missing label"
 
       # - name: check response
       #   id: check_response
@@ -34,13 +37,13 @@ jobs:
 
       #     echo "response label checker ${{ steps.label_checker.conclusion}}"
 
-      # - name: trigger by conclusion failure
-      #   if: (failure() && steps.checker.conclusion)
-      #   run: |
-      #     echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
+      - name: trigger by conclusion failure
+        if: (failure() && steps.checker.conclusion)
+        run: |
+          echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
 
       - uses: bcgov-nr/action-pr-description-add@main
-        if: (Failure() && steps.checker.conclusion && steps.label_checker.conclusion)
+        if: (Failure() && steps.label_checker.conclusion)
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
