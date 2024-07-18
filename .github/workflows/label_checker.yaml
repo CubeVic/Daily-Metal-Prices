@@ -27,6 +27,7 @@ jobs:
 
       - name: check response
         id: check_response
+        if: always()
         run: |
           echo "response conclusion ${{steps.checker.conclusion}}"
           echo "response outcome ${{steps.checker.outcome}}"
