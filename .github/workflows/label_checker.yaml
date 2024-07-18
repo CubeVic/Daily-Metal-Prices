@@ -32,6 +32,7 @@ jobs:
         with:
           github-token: ${{github.token}}
           bodyContains: "Update missing label"
+        continue-on-error: true
 
       - name: Label Checker
         id: label_checker
