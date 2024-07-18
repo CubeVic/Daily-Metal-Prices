@@ -25,14 +25,6 @@ jobs:
       #   with:
       #     labels: Released
 
-      - name: Check PR
-        id: checker
-        if: always()
-        uses: JJ/github-pr-contains-action@releases/v14.1
-        with:
-          github-token: ${{github.token}}
-          bodyContains: "Update missing label"
-
       - name: Label Checker
         id: label_checker
         if: always()
@@ -40,6 +32,14 @@ jobs:
         with:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Check PR
+        id: checker
+        if: failure() && steps.label_checker.conclusion == 'failure'
+        uses: JJ/github-pr-contains-action@releases/v14.1
+        with:
+          github-token: ${{github.token}}
+          bodyContains: "Update missing label"
 
       - uses: bcgov-nr/action-pr-description-add@main
         if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
@@ -66,7 +66,7 @@ jobs:
 
       - name: Final message
         uses: thollander/actions-comment-pull-request@v2.5.0
-        if: success() && (steps.checker.conclusion == 'success' && steps.label_checker.conclusion == 'success')
+        if: success() && steps.label_checker.conclusion == 'success')
         with:
           message: |
             :shipit: Thank you for changing the Label
