@@ -92,7 +92,7 @@ jobs:
         if: success() && steps.label_checker.conclusion == 'success'
         with:
           message: |
-            :shipit: Label check passed
+            ## :shipit: Label check passed :white_check_mark:
 
           reactions: +1
           comment_tag: Label
