@@ -1,0 +1,99 @@
+name: Labels Check
+on:
+  pull_request:
+    types:
+      - opened
+      - labeled
+      - unlabeled
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+
+  check_labels:
+    name: Check labels
+    runs-on: ubuntu-latest
+    steps:
+
+      # - name: check PR body
+      #   id: body_checker
+      #   uses: JJ/github-pr-contains-action@releases/v14.1
+      #   with:
+      #     github-token: ${{github.token}}
+      #     bodyContains: " - [x] It's a feature already on Production"
+
+      # - name:  auto label
+      #   id: auto_label
+      #   uses: actions-ecosystem/action-add-labels@v1
+      #   if: success()
+      #   with:
+      #     labels: Released
+
+      - name: Label Checker
+        id: label_checker
+        if: always()
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: Released, Unrelease, bug_fix, enhancement
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check PR
+        id: checker
+        if: failure() && steps.label_checker.conclusion == 'failure'
+        uses: JJ/github-pr-contains-action@releases/v14.1
+        with:
+          github-token: ${{github.token}}
+          bodyContains: "Update missing label"
+
+
+      - uses: bcgov-nr/action-pr-description-add@main
+        if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          limit_to_pr_opened: "true"
+
+          add_markdown: |
+            ---
+            ## :shipit: Label Checker status Failed
+
+            If the Label Checker status is `failure`, you forgot to add a label to the PR.
+            - `Unrelease` label for those features not deployed yet.
+            - `Released` label for those features already released.
+            - `bug_fix`  label for fixing an existing test case, module, or component.
+            - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
+
+            > [!WARNING]
+            > PR without a label won't be merged, team members responsible for merging are not responsible for the status, it will be up to each owner to tag PR and change those tags if needed.
+
+            > [!TIP]
+            Future you and current Team members would appreciate it if you could pay attention to the creation of the PR it is part of the delivery and will help reviewers and mergers to understand your intention.
+
+            --Update missing label--
+
+      - name: Wrong label message
+        uses: thollander/actions-comment-pull-request@v2.5.0
+        if: failure() && (steps.checker.conclusion == 'success' && steps.label_checker.conclusion == 'failure')
+        with:
+          message: |
+            ## :shipit: Label Not supported
+
+            ### supported labels:
+            - `Unrelease` label for those features not deployed yet.
+            - `Released` label for those features already released.
+            - `bug_fix`  label for fixing an existing test case, module, or component.
+            - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
+
+          reactions: thinking_face
+          comment_tag: Label
+          pr_number: ${{ inputs.pull_request_number}}
+
+      - name: Final message
+        uses: thollander/actions-comment-pull-request@v2.5.0
+        if: success() && steps.label_checker.conclusion == 'success'
+        with:
+          message: |
+            ## :shipit: Label check passed :white_check_mark:
+
+          reactions: heart
+          comment_tag: Label
+          pr_number: ${{ inputs.pull_request_number}}

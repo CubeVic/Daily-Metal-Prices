@@ -4,7 +4,7 @@
 
 ## Description
 
-In the future will be a microservice that will provide the daily prices of different precious metals in USD, for now it provide prices from a single API (https://www.goldapi.io/) in the future is expected to have its own logic and fetch the prices form other sources.
+In the future will be a microservice that will provide the daily prices of different precious metals in USD, for now, it provides prices from a single API (https://www.goldapi.io/) in the future is expected to have its own logic and fetch the prices form other sources.
 
 ## How to Use the Project
 
@@ -47,6 +47,7 @@ In the future will be a microservice that will provide the daily prices of diffe
     'requests_last_month': 0
 }
 ```
+
 
 ## License
 [MIT license](LICENSE)
