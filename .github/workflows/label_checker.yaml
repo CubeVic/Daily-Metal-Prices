@@ -75,8 +75,8 @@ jobs:
         if: success() && steps.label_checker.conclusion == 'success'
         with:
           message: |
-            ## :shipit: Label Not supported 
-              
+            ## :shipit: Label Not supported
+
             ### supported labels:
             - `Unrelease` label for those features not deployed yet.
             - `Released` label for those features already released.
