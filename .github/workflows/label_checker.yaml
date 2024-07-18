@@ -41,6 +41,15 @@ jobs:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: mid message
+        uses: thollander/actions-comment-pull-request@v2.5.0
+        if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'success')
+        with:
+          message: |
+            :shipit: Thank you for changing the Label
+
+          reactions: +1
+          pr_number: ${{ inputs.pull_request_number}}
 
       - uses: bcgov-nr/action-pr-description-add@main
         if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
@@ -65,7 +74,7 @@ jobs:
 
             --Update missing label--
 
-      - name: Comment Pull Request if branch is up to date withbase
+      - name: Final message
         uses: thollander/actions-comment-pull-request@v2.5.0
         if: success() && (steps.checker.conclusion == 'success' && steps.label_checker.conclusion == 'success')
         with:
