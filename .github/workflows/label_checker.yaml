@@ -63,19 +63,3 @@ jobs:
             > Helpful advice for doing things better or more easily.
 
             --Updated missing label--
-
-      # - uses: bcgov-nr/action-pr-description-add@main
-      #   if: steps.checker.conclusion == 'failure'
-      #   with:
-      #     github_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     limit_to_pr_opened: "false"
-      #     add_markdown: |
-      #       ---
-      #       ## :shipit: Label Checker status Failed
-      #       checker outcome: ${{ steps.checker.outcome}}
-      #       ${{ steps.checker.conclusion}}
-
-      #       is failure ? ${{ steps.checker.conclusion == 'failure'}}
-
-
-      #       --Updated label--
