@@ -32,7 +32,7 @@ jobs:
         with:
           one_of: Released, Unrelease, bug_fix, enhancement
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Check PR
         id: checker
         if: failure() && steps.label_checker.conclusion == 'failure'
