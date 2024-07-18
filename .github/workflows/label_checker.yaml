@@ -25,23 +25,23 @@ jobs:
           github-token: ${{github.token}}
           bodyContains: "Updated missing label"
 
-      - name: check response
-        id: check_response
-        if: always()
-        run: |
-          echo "response conclusion ${{steps.checker.conclusion}}"
-          echo "response outcome ${{steps.checker.outcome}}"
+      # - name: check response
+      #   id: check_response
+      #   if: always()
+      #   run: |
+      #     echo "response conclusion ${{steps.checker.conclusion}}"
+      #     echo "response outcome ${{steps.checker.outcome}}"
 
-          echo "response label checker ${{ steps.label_checker.conclusion}}"
+      #     echo "response label checker ${{ steps.label_checker.conclusion}}"
 
-      - name: trigger by conclusion failure
-        if: (failure() && steps.checker.conclusion)
-        run: |
-          echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
+      # - name: trigger by conclusion failure
+      #   if: (failure() && steps.checker.conclusion)
+      #   run: |
+      #     echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
 
       - uses: bcgov-nr/action-pr-description-add@main
         # if: (failure() && steps.label_checker.conclusion)
-        if: (success() && (steps.checker.conclusion && steps.label_checker.conclusion))
+        if: not (steps.checker.conclusion && steps.label_checker.conclusion)
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
