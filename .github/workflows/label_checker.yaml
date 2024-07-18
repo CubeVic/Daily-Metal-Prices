@@ -32,35 +32,36 @@ jobs:
           echo "response conclusion ${{steps.checker.conclusion}}"
           echo "response outcome ${{steps.checker.outcome}}"
 
+          echo "response label checker ${{ steps.label_checker.conclusion}}"
+
       - name: trigger by conclusion failure
         if: (failure() && steps.checker.conclusion)
         run: |
           echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
 
+      - uses: bcgov-nr/action-pr-description-add@main
+        if: (failure() && steps.label_checker.conclusion)
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          limit_to_pr_opened: "true"
+          add_markdown: |
+            ---
+            ## :shipit: Label Checker status Failed
+            outcome: ${{ steps.checker.outcome}}
+            conclusion: ${{ steps.checker.outputs.conclusion }}
+            If the Label Checker status is `failure`, you forgot to add a label to the PR.
+            - `Unrelease` label for those features not deployed yet.
+            - `Released` label for those features already released.
+            - `bug_fix`  label for any fix of an existing test case, module, or component.
+            - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
 
-      # - uses: bcgov-nr/action-pr-description-add@main
-      #   if: ${{ steps.checker.conclusion == 'success'}}
-      #   with:
-      #     github_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     limit_to_pr_opened: "false"
-      #     add_markdown: |
-      #       ---
-      #       ## :shipit: Label Checker status Failed
-      #       outcome: ${{ steps.checker.outcome}}
-      #       conclusion: ${{ steps.checker.outputs.conclusion }}
-      #       If the Label Checker status is `failure`, you forgot to add a label to the PR.
-      #       - `Unrelease` label for those features not deployed yet.
-      #       - `Released` label for those features already released.
-      #       - `bug_fix`  label for any fix of an existing test case, module, or component.
-      #       - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
+            > [!WARNING]
+            > PR without a label won't be merged, team members responsible for merging are not responsible for the status, it will be up to each owner to tag PR and change those tags if needed.
 
-      #       > [!WARNING]
-      #       > PR without a label won't be merged, team members responsible for merging are not responsible for the status, it will be up to each owner to tag PR and change those tags if needed.
+            > [!TIP]
+            > Helpful advice for doing things better or more easily.
 
-      #       > [!TIP]
-      #       > Helpful advice for doing things better or more easily.
-
-      #       --Updated missing label--
+            --Updated missing label--
 
       # - uses: bcgov-nr/action-pr-description-add@main
       #   if: steps.checker.conclusion == 'failure'
