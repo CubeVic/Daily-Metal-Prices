@@ -44,29 +44,36 @@ jobs:
         with:
           github-token: ${{github.token}}
           bodyContains: "Update missing label"
-
+      - name: load text
+        id: load_text
+        run: |
+          FILE_CONTENT=$(cat .github/test_label_check_failed.md)
+          echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
+          
       - uses: bcgov-nr/action-pr-description-add@main
         if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
           add_markdown: |
-            ---
-            ## :shipit: Label Checker status Failed
+              ${{ env.FILE_CONTENT}}
+          # add_markdown: |
+          #   ---
+          #   ## :shipit: Label Checker status Failed
 
-            If the Label Checker status is `failure`, you forgot to add a label to the PR.
-            - `Unrelease` label for those features not deployed yet.
-            - `Released` label for those features already released.
-            - `bug_fix`  label for any fix of an existing test case, module, or component.
-            - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
+          #   If the Label Checker status is `failure`, you forgot to add a label to the PR.
+          #   - `Unrelease` label for those features not deployed yet.
+          #   - `Released` label for those features already released.
+          #   - `bug_fix`  label for any fix of an existing test case, module, or component.
+          #   - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
 
-            > [!WARNING]
-            > PR without a label won't be merged, team members responsible for merging are not responsible for the status, it will be up to each owner to tag PR and change those tags if needed.
+          #   > [!WARNING]
+          #   > PR without a label won't be merged, team members responsible for merging are not responsible for the status, it will be up to each owner to tag PR and change those tags if needed.
 
-            > [!TIP]
-            Future you and current Team members would appreciate it if you could pay attention to the creation of the PR it is part of the delivery and will help reviewers and mergers to understand your intention.
+          #   > [!TIP]
+          #   Future you and current Team members would appreciate it if you could pay attention to the creation of the PR it is part of the delivery and will help reviewers and mergers to understand your intention.
 
-            --Update missing label--
+          #   --Update missing label--
 
       - name: Final message
         uses: thollander/actions-comment-pull-request@v2.5.0
