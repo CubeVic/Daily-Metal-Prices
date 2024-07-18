@@ -23,7 +23,7 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         if: success()
         with:
-          labels: bug
+          labels: Released
 
       - name: Check PR
         id: checker
