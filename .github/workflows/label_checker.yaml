@@ -28,21 +28,21 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
 
-      - name: check response
-        id: check_response
-        if: always()
-        run: |
-          echo "response conclusion ${{steps.checker.conclusion}}"
-          echo "response label checker ${{ steps.label_checker.conclusion}}"
-          echo "${{ steps.label_checker.conclusion == 'failure'}}"
+      # - name: check response
+      #   id: check_response
+      #   if: always()
+      #   run: |
+      #     echo "response conclusion ${{steps.checker.conclusion}}"
+      #     echo "response label checker ${{ steps.label_checker.conclusion}}"
+      #     echo "${{ steps.label_checker.conclusion == 'failure'}}"
 
-      - name: trigger by conclusion failure
-        if: (failure() && steps.checker.conclusion)
-        run: |
-          echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
+      # - name: trigger by conclusion failure
+      #   if: (failure() && steps.checker.conclusion)
+      #   run: |
+      #     echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
 
       - uses: bcgov-nr/action-pr-description-add@main
-        if: (steps.checker.conclusion == 'failure') && (steps.label_checker.conclusion == 'failure')
+        if: failure() && (steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure')
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
