@@ -41,7 +41,7 @@ jobs:
 
       - uses: bcgov-nr/action-pr-description-add@main
         # if: (failure() && steps.label_checker.conclusion)
-        if: (steps.checker.conclusion && steps.label_checker.conclusion)
+        if: (success() && (steps.checker.conclusion && steps.label_checker.conclusion))
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
