@@ -21,7 +21,7 @@ jobs:
 
       - name: Label Checker
         id: label_checker
-        if: (Failure() && steps.checker.conclusion)
+        if: always()
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
           one_of: Released, Unrelease, bug_fix, enhancement
@@ -43,7 +43,7 @@ jobs:
           echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
 
       - uses: bcgov-nr/action-pr-description-add@main
-        if: (Failure() && steps.label_checker.conclusion)
+        if: steps.checker.conclusion == 'failure' && steps.label_checker.conclusion == 'failure'
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           limit_to_pr_opened: "true"
