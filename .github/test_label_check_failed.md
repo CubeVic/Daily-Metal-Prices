@@ -1,7 +1,5 @@
 ---
-## :shipit: Label Checker status Failed
-
-If the Label Checker status is `failure`, you forgot to add a label to the PR.
+## :shipit: Label Checker status Failed <br> If the Label Checker status is `failure`, you forgot to add a label to the PR.
 - `Unrelease` label for those features not deployed yet.
 - `Released` label for those features already released.
 - `bug_fix`  label for any fix of an existing test case, module, or component.
