@@ -51,7 +51,7 @@ jobs:
       - name: load text
         id: load_text
         run: |
-          FILE_CONTENT=$(cat .github/test_label_check_failed.md)
+          FILE_CONTENT=$(cat $PWD/.github/test_label_check_failed.md)
           echo "FILE_CONTENT=${FILE_CONTENT}" >> $GITHUB_ENV
 
       - uses: bcgov-nr/action-pr-description-add@main
