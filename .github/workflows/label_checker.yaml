@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: check PR body
+        id: body_checker
+        uses: JJ/github-pr-contains-action@releases/v14.1
+        with:
+          github-token: ${{github.token}}
+          bodyContains: " - [x] It's a feature already on Production"
+
       - name: Check PR
         id: checker
         if: always()
