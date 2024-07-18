@@ -35,7 +35,7 @@ jobs:
       - name: trigger by conclusion failure
         if: (failure() && steps.checker.conclusion)
         run: |
-          echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}
+          echo "conclusion give failure steps.checker.conclusion => ${{steps.checker.conclusion}}"
 
 
       # - uses: bcgov-nr/action-pr-description-add@main
