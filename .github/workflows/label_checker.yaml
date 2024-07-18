@@ -69,7 +69,8 @@ jobs:
         if: success() && steps.label_checker.conclusion == 'success'
         with:
           message: |
-            :shipit: Thank you for changing the Label
+            :shipit: Label check passed 
 
           reactions: +1
+          comment_tag: Label
           pr_number: ${{ inputs.pull_request_number}}
