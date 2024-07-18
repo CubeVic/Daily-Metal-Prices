@@ -83,7 +83,7 @@ jobs:
             - `bug_fix`  label for fixing an existing test case, module, or component.
             - `enhancement` label for any addition that is not test case related, for example, some reusable function or module.
 
-          reactions: +1
+          reactions: '+1'
           comment_tag: Label
           pr_number: ${{ inputs.pull_request_number}}
 
@@ -94,6 +94,6 @@ jobs:
           message: |
             ## :shipit: Label check passed :white_check_mark:
 
-          reactions: +1
+          reactions: ':heart:'
           comment_tag: Label
           pr_number: ${{ inputs.pull_request_number}}
