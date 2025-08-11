@@ -30,8 +30,7 @@ class MetalResponse(BaseModel):
 
 
 class StatResponse(BaseModel):
-    requests_today: int 
+    requests_today: int
     requests_yesterday: int
     requests_month: int
     requests_last_month: int
-
